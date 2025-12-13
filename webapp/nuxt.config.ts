@@ -1,8 +1,13 @@
 export default defineNuxtConfig({
-  compatibilityDate: '2025-07-15',
+  modules: [
+    '@nuxt/eslint',
+  ],
+
   devtools: {
-    enabled: true
+    enabled: true,
   },
+
+  compatibilityDate: '2025-07-15',
 
   // Typescript
   typescript: {
@@ -12,6 +17,14 @@ export default defineNuxtConfig({
       compilerOptions: {
         noUncheckedIndexedAccess: true,
       },
+    },
+  },
+
+  // Eslint
+  eslint: {
+    config: {
+      stylistic: true,
+      standalone: false,
     },
   },
 })
