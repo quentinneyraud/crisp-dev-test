@@ -1,3 +1,5 @@
+import process from 'node:process'
+
 // Sass modules included in templates <style> tags (https://sass-lang.com/documentation/modules/)
 type SassModules = 'math' | 'string' | 'color' | 'list' | 'map' | 'selector' | 'meta'
 const sassModules: SassModules[] = ['math', 'map']
@@ -14,6 +16,12 @@ export default defineNuxtConfig({
 
   // Global styles
   css: ['@/assets/styles/index.scss'],
+
+  runtimeConfig: {
+    public: {
+      APP_URL: process.env.APP_URL,
+    },
+  },
 
   compatibilityDate: '2025-07-15',
 
