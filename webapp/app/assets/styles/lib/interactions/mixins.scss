@@ -1,0 +1,76 @@
+@use '../main/variables.scss' as *;
+
+@mixin no-drag {
+  -webkit-user-drag: none;
+}
+
+@mixin drag {
+  -webkit-user-drag: auto;
+}
+
+@mixin no-select {
+  user-select: none;
+}
+
+@mixin select {
+  user-select: auto;
+}
+
+@mixin no-pointer {
+  pointer-events: none;
+}
+
+@mixin pointer {
+  pointer-events: auto;
+}
+
+@mixin no-interaction {
+  @include no-drag();
+
+  @include no-select();
+
+  @include no-pointer();
+}
+
+@mixin interaction {
+  @include drag();
+
+  @include select();
+
+  @include pointer();
+}
+
+@mixin scrollable-x {
+  overflow-x: auto;
+  scrollbar-color: $scrollbar-thumb-color $scrollbar-track-color;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    height: 1px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $scrollbar-thumb-color;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $scrollbar-track-color;
+  }
+}
+
+@mixin scrollable-y {
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: calc(Infinity * 1px);
+    background: $scrollbar-thumb-color;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $scrollbar-track-color;
+  }
+}

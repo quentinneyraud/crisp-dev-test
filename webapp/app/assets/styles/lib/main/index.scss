@@ -1,0 +1,39 @@
+@use 'sass:math';
+@use 'sass:map';
+@use './variables.scss' as *;
+@use '../fonts/variables.scss' as *;
+@use '../media-queries/index.shared.scss' as *;
+@use './mixins.scss' as *;
+
+html {
+  @include bp-up($desktop-mockup-width) {
+    font-size: math.div(1600, $desktop-mockup-width) * 0.9vw;
+  }
+}
+
+body {
+  width: 100%;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  color: $text-color;
+  background-color: $body-color;
+
+  font-family: $default-font;
+
+  &.cursor-loading * {
+    cursor: wait !important;
+  }
+
+  &.cursor-grabbing * {
+    cursor: grabbing !important;
+  }
+}
+
+.debug {
+  @include debug;
+}
+
+#__nuxt {
+  min-height: 100dvh;
+  overflow: hidden;
+}

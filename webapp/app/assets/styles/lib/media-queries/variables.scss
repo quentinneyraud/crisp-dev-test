@@ -1,0 +1,32 @@
+$width-breakpoints: (
+  'mobile': (
+    value: 576,
+    prefix: 'm',
+  ),
+  'tablet': (
+    value: 768,
+    prefix: 't',
+  ),
+  'desktop': (
+    value: 992,
+    prefix: 'd',
+  ),
+  'large': (
+    value: 1200,
+    prefix: 'l',
+  ),
+  'xlarge': (
+    value: 1440,
+    prefix: 'xl',
+  ),
+  'xxlarge': (
+    value: 1600,
+    prefix: 'xxl',
+  ),
+);
+
+$height-breakpoints: (
+  'small': 500,
+  'medium': 720,
+  'large': 970,
+);

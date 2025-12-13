@@ -1,0 +1,29 @@
+@use './lib/variables.scss' as *;
+@use './lib/main/to-rem.scss' as *;
+
+@forward './lib/variables';
+
+/*
+
+Colors
+
+*/
+
+/*
+
+Grid
+
+*/
+
+$columns: 12;
+
+/*
+
+Texts
+
+*/
+$ff-my-font: 'MyFont', $default-sans-serif-font-family;
+$default-font: $ff-my-font;
+
+
+$ma-variable: green;

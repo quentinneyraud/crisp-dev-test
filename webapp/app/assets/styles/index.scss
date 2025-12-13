@@ -1,0 +1,45 @@
+// ./index.shared.scss already included here by Vite config
+@use './lib/index';
+
+/*
+
+Fonts
+
+*/
+@include import-font('My font', '@/assets/fonts/my-font', $fw-regular);
+
+/*
+
+Text styles
+
+*/
+
+@layer base {
+  .title-1 {
+    @include font($ff-my-font, fs(36, 70), 100%, $fw-regular);
+    white-space: pre-line;
+  }
+
+  .text-1 {
+    @include font($ff-my-font, fs(20, 20), 135%, $fw-light);
+  }
+}
+
+/*
+
+Main
+
+*/
+@layer base {
+  .wrapper-s {
+    @include wrapper(689);
+  }
+
+  .wrapper-m {
+    @include wrapper(926);
+  }
+
+  .wrapper-l {
+    @include wrapper(1163);
+  }
+}

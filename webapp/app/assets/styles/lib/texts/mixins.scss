@@ -1,0 +1,43 @@
+@use 'sass:meta';
+@use 'sass:math';
+@use 'sass:map';
+@use './variables.scss' as *;
+@use '../sass-utils/index.shared.scss' as *;
+@use '../main/to-rem.scss' as *;
+@use '../media-queries/breakpoints.scss' as *;
+@use '../media-queries/variables.scss' as *;
+
+@mixin fsz($font-size) {
+  @if (meta.type-of($font-size)=='number') {
+    font-size: toRem($font-size);
+  }
+
+  @else {
+    font-size: $font-size;
+  }
+}
+
+@mixin lh($line-height) {
+  @if (meta.type-of($line-height)=='number' and math.unit($line-height)=='px') {
+    line-height: toRem($line-height);
+  }
+
+  line-height: $line-height;
+}
+
+@mixin font($font-family-name,
+  $font-size: 16px,
+  $line-height: normal,
+  $font-weight: $fw-regular,
+  $color: null,
+  $letter-spacing: 0,
+  $font-style: normal) {
+  color: $color;
+  font-style: $font-style;
+  font-weight: $font-weight;
+  font-family: $font-family-name;
+  letter-spacing: $letter-spacing;
+
+  @include fsz($font-size);
+  @include lh($line-height);
+}

@@ -1,0 +1,77 @@
+@use '../main/to-rem.scss' as *;
+
+@layer base {
+  .rich-text {
+    & > * {
+      margin-top: toRem(20);
+      margin-bottom: toRem(15);
+    }
+
+    & > *:first-child {
+      margin-top: 0;
+    }
+
+    & > *:last-child {
+      margin-bottom: 0;
+    }
+
+    a {
+      text-decoration: underline;
+    }
+
+    strong,
+    b {
+      font-weight: bold;
+
+      * {
+        font-weight: inherit;
+      }
+    }
+
+    em,
+    i {
+      font-style: italic;
+
+      * {
+        font-style: inherit;
+      }
+    }
+
+    ul {
+      padding-left: toRem(20);
+    }
+
+    li::before {
+      display: inline-block;
+
+      width: toRem(10);
+      height: toRem(10);
+      margin-right: toRem(10);
+      margin-left: toRem(-20);
+      content: '';
+    }
+
+    .image {
+      position: relative;
+
+      margin-top: toRem(40);
+      margin-bottom: toRem(30);
+
+      font-size: 0px;
+      line-height: 0px;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin-top: toRem(10);
+    }
+  }
+}

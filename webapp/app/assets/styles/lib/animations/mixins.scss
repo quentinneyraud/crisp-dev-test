@@ -1,0 +1,27 @@
+@use 'sass:string';
+@use 'sass:list';
+@use './variables.scss' as *;
+
+@mixin hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+@mixin visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+@mixin is-animated($animated-properties: (transform,
+    opacity,
+  )) {
+  @if (list.separator($animated-properties) !='comma') {
+    @debug 'Should be a comma separated list: '+$animated-properties;
+  }
+
+  @else {
+    transform: translateZ(0px);
+    backface-visibility: hidden;
+    will-change: $animated-properties;
+  }
+}

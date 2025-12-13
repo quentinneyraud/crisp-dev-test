@@ -1,0 +1,4 @@
+@use '../main/to-rem.scss' as *;
+
+$wrapper-padding: toRem(15);
+// $wrapper-padding-desktop: toRem(20);

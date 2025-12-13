@@ -1,0 +1,109 @@
+@use 'sass:math';
+@use 'sass:map';
+@use '../main/to-rem.scss' as *;
+@use '../media-queries/variables.scss' as *;
+@use '../media-queries/breakpoints.scss' as *;
+
+@mixin wrapper($size: null) {
+  position: relative;
+
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: var(--wrapper-padding);
+  padding-left: var(--wrapper-padding);
+
+  @if ($size) {
+    max-width: calc(#{toRem($size)} + var(--wrapper-padding) * 2);
+  }
+}
+
+@mixin flex-width($size) {
+  flex: 0 0 auto;
+
+  width: $size;
+}
+
+@mixin flex-height($size) {
+  flex: 0 0 auto;
+
+  height: $size;
+}
+
+@mixin flex-size($size) {
+  @include flex-width($size);
+}
+
+@mixin flex-list() {
+  --items-gap: 0rem;
+  --items-by-line: 1;
+
+  display: flex;
+  column-gap: var(--items-gap);
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+@mixin flex-list-item() {
+  @include flex-size(calc(((100% - (var(--items-by-line) - 1) * var(--items-gap)) / var(--items-by-line))));
+}
+
+@function tX($value) {
+  @return translate3d($value, 0px, 0px);
+}
+
+@function tY($value) {
+  @return translate3d(0px, $value, 0px);
+}
+
+@function tXY($xValue, $yValue) {
+  @return translate3d($xValue, $yValue, 0px);
+}
+
+@mixin centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: tXY(-50%, -50%);
+}
+
+@mixin full-parent {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+}
+
+@mixin flex-parent-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin after {
+  &:after {
+    content: '';
+
+    @content;
+  }
+}
+
+@mixin before {
+  &:before {
+    content: '';
+
+    @content;
+  }
+}
+
+@mixin before-after {
+
+  &:before,
+  &:after {
+    content: '';
+
+    @content;
+  }
+}

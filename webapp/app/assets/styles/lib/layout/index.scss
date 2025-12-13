@@ -1,0 +1,19 @@
+@use 'sass:meta';
+@use './mixins.scss' as *;
+@use './variables.scss' as *;
+@use '../main/mixins.scss' as *;
+@use '../main/to-rem.scss' as *;
+@use '../media-queries/breakpoints.scss' as *;
+
+
+@layer base {
+  :root {
+    --wrapper-padding: #{$wrapper-padding};
+
+    @if meta.variable-exists(wrapper-padding-desktop) {
+      @include desktop {
+        --wrapper-padding: #{$wrapper-padding-desktop};
+      }
+    }
+  }
+}

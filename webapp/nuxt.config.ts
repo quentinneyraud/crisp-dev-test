@@ -1,3 +1,8 @@
+// Sass modules included in templates <style> tags (https://sass-lang.com/documentation/modules/)
+type SassModules = 'math' | 'string' | 'color' | 'list' | 'map' | 'selector' | 'meta'
+const sassModules: SassModules[] = ['math', 'map']
+const sassModulesImportString = sassModules.map(sassModule => `@use "sass:${sassModule}";`).join('')
+
 export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
@@ -7,7 +12,22 @@ export default defineNuxtConfig({
     enabled: true,
   },
 
+  // Global styles
+  css: ['@/assets/styles/index.scss'],
+
   compatibilityDate: '2025-07-15',
+
+  // SCSS
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `${sassModulesImportString} @use "@/assets/styles/index.shared.scss" as *;`,
+          silenceDeprecations: ['if-function'],
+        },
+      },
+    },
+  },
 
   // Typescript
   typescript: {

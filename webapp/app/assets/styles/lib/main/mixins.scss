@@ -1,0 +1,72 @@
+@use 'sass:map';
+@use 'sass:meta';
+@use 'sass:math';
+@use './variables.scss' as *;
+@use '../sass-utils/index.shared.scss' as *;
+@use '../main/to-rem.scss' as *;
+@use '../media-queries/breakpoints.scss' as *;
+@use '../media-queries/variables.scss' as *;
+
+
+@mixin debug($color: red) {
+  outline: solid 2px $color;
+}
+
+// https://www.smashingmagazine.com/2022/10/fluid-typography-clamp-sass-functions/
+@function fs($start-size,
+  $end-size,
+  $start-size-breakpoint: $mobile-mockup-width,
+  $end-size-breakpoint: $desktop-mockup-width,
+  $unit: vw) {
+  $error: "$start-size-breakpoint an $end-size-breakpoint must be a number or a key of $width-breakpoints, '#{$start-size-breakpoint}' passed. Available keys : #{map.keys($width-breakpoints)}";
+
+  @if (meta.type-of($start-size-breakpoint)=='string') {
+    @if not(map.has-key($width-breakpoints, $start-size-breakpoint)) {
+      @error $error;
+    }
+
+    $start-size-breakpoint: map.get($width-breakpoints, $start-size-breakpoint, 'value');
+  }
+
+  @if (meta.type-of($end-size-breakpoint)=='string') {
+    @if not(map.has-key($width-breakpoints, $end-size-breakpoint)) {
+      @error $error;
+    }
+
+    $end-size-breakpoint: map.get($width-breakpoints, $end-size-breakpoint, 'value');
+  }
+
+  $start-size: strip-unit($start-size);
+  $start-size-breakpoint: strip-unit($start-size-breakpoint);
+  $end-size: strip-unit($end-size);
+  $end-size-breakpoint: strip-unit($end-size-breakpoint);
+
+  $slope: math.div($end-size - $start-size, $end-size-breakpoint - $start-size-breakpoint);
+  $slope-to-unit: round($slope * 100, 3);
+  $intercept-rem: round(toRem($start-size - $slope * $start-size-breakpoint), 3);
+
+  $clamp-min: if($end-size > $start-size, toRem($start-size), toRem($end-size));
+  $clamp-max: if($end-size > $start-size, toRem($end-size), toRem($start-size));
+
+  @return clamp(#{$clamp-min}, #{$slope-to-unit}#{$unit} + #{$intercept-rem}, #{$clamp-max});
+}
+
+@mixin sr-only {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+  padding: 0;
+
+  overflow: hidden;
+  border: 0;
+
+  white-space: nowrap;
+
+  clip: rect(0, 0, 0, 0);
+}
+
+@mixin fix-blurry {
+  transform: translateZ(0px);
+  will-change: transform;
+}

@@ -1,0 +1,219 @@
+@use '../main/mixins.scss' as *;
+
+/* purgecss start ignore */
+@layer reset {
+  body {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-smooth: always;
+    -webkit-text-size-adjust: 100%;
+
+    background-color: #fff;
+
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-touch-callout: none;
+  }
+
+  html,
+  body {
+    overscroll-behavior: none;
+
+    font-kerning: none;
+  }
+
+  *,
+  *:after,
+  *:before {
+    box-sizing: border-box;
+  }
+
+  template {
+    display: none;
+  }
+
+  main {
+    display: block;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      outline: none;
+      text-decoration: none;
+    }
+  }
+
+  sub,
+  sup {
+    position: relative;
+
+    vertical-align: baseline;
+  }
+
+  sup {
+    top: -0.5em;
+  }
+
+  sub {
+    bottom: -0.25em;
+  }
+
+  input,
+  button,
+  select,
+  optgroup,
+  textarea {
+    margin: 0;
+    color: inherit;
+
+    font: inherit;
+  }
+
+  input,
+  button {
+    display: inline-block;
+
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    outline: none;
+
+    background: none;
+
+    line-height: inherit;
+    vertical-align: middle;
+    white-space: normal;
+  }
+
+  a:hover,
+  a:focus,
+  input:focus,
+  button:focus,
+  input:hover,
+  button:hover {
+    outline: none;
+  }
+
+  input {
+    &::placeholder {
+      font: inherit;
+
+      opacity: 1;
+    }
+
+    // https://stackoverflow.com/questions/61083813/how-to-avoid-internal-autofill-selected-style-to-be-applied
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:focus {
+      transition:
+        background-color 0s 600000s,
+        color 0s 600000s !important;
+    }
+  }
+
+  button,
+  select {
+    text-transform: none;
+  }
+
+  select {
+    word-wrap: normal;
+  }
+
+  button,
+  [type='button'],
+  [type='reset'],
+  [type='submit'] {
+    -webkit-appearance: button;
+    appearance: auto;
+  }
+
+  button:not(:disabled),
+  [type='button']:not(:disabled),
+  [type='reset']:not(:disabled),
+  [type='submit']:not(:disabled) {
+    cursor: pointer;
+  }
+
+  ::-moz-focus-inner {
+    padding: 0;
+    border-style: none;
+  }
+
+  input[type='date'],
+  input[type='time'],
+  input[type='datetime-local'],
+  input[type='month'] {
+    -webkit-appearance: textfield;
+    appearance: textfield;
+  }
+
+  textarea {
+    overflow: auto;
+
+    border: none;
+
+    outline: none;
+    resize: vertical;
+  }
+
+  fieldset {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  legend {
+    width: 100%;
+    margin-bottom: 0;
+    padding: 0;
+    float: left;
+    color: inherit;
+
+    font-weight: 400;
+    line-height: inherit;
+    white-space: normal;
+  }
+
+  progress {
+    vertical-align: baseline;
+  }
+
+  ::-webkit-datetime-edit {
+    overflow: visible;
+
+    line-height: 0;
+  }
+
+  [type='search'] {
+    -webkit-appearance: textfield;
+    appearance: textfield;
+    outline-offset: -2px;
+  }
+
+  ::-webkit-search-decoration {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  ::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  span {
+    @include fix-blurry;
+  }
+}
+/* purgecss end ignore */

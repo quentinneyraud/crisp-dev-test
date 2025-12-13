@@ -1,0 +1,26 @@
+@use './device.scss' as *;
+
+@mixin hover {
+  @include mouse {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+@mixin focus {
+  @include mouse {
+    &:focus-visible {
+      @content;
+    }
+  }
+}
+
+@mixin hover-focus {
+  @include mouse {
+    &:hover,
+    &:focus-visible {
+      @content;
+    }
+  }
+}

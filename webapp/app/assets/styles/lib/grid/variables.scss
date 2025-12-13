@@ -1,0 +1,7 @@
+@use '../main/to-rem.scss' as *;
+
+$columns: 12;
+
+$has-col-padding: false;
+$col-padding: toRem(5);
+// $col-padding-desktop: toRem(10);

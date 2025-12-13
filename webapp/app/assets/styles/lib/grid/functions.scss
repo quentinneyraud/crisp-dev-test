@@ -1,0 +1,22 @@
+@use 'sass:math';
+@use './variables.scss' as *;
+
+@function get-columns-size($number-of-columns: 1, $total-number-of-columns: var(--columns)) {
+  @if $has-col-padding {
+    @return calc(($number-of-columns / $total-number-of-columns) * (100% - ($total-number-of-columns - 1) * var(--2-col-padding)) + ($number-of-columns - 1) * var(--2-col-padding));
+  }
+
+  @else {
+    @return calc($number-of-columns / $total-number-of-columns * 100%);
+  }
+}
+
+@function get-push($number-of-columns: 1, $total-number-of-columns: var(--columns)) {
+  @if $has-col-padding {
+    @return calc($number-of-columns / $total-number-of-columns * (100% - ($total-number-of-columns - 1) * var(--2-col-padding)) + var(--2-col-padding) * (($number-of-columns)));
+  }
+
+  @else {
+    @return math.percentage(math.div($number-of-columns, $total-number-of-columns));
+  }
+}

@@ -1,0 +1,22 @@
+@use 'sass:meta';
+@use './variables.scss' as *;
+@use './mixins.scss' as *;
+@use '../main/mixins.scss' as *;
+@use '../media-queries/breakpoints.scss' as *;
+
+@layer base {
+  :root {
+    --columns: #{$columns};
+
+    @if ($has-col-padding) {
+      --col-padding: #{$col-padding};
+      --2-col-padding: calc(var(--col-padding) * 2);
+
+      @if meta.variable-exists(col-padding-desktop) {
+        @include desktop {
+          --col-padding: #{$col-padding-desktop};
+        }
+      }
+    }
+  }
+}
