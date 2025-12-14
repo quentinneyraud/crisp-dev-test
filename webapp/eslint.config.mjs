@@ -15,6 +15,8 @@ export default withNuxt(
     },
   }),
   {
-    ignores: [],
+    ignores: [
+      './app/types/database.types.ts',
+    ],
   },
 )
