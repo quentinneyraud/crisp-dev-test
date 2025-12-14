@@ -1,25 +1,25 @@
 -- Messages
 
 create policy "read messages"
-on messages for select
+on message for select
 using (
   exists (
     select 1
     from room_users
-    where room_users.room_id = messages.room_id
-    and room_users.user_id = auth.uid()
+    where room_users.room_id = message.room_id
+    and room_users.user_id = (select auth.uid())
   )
 );
 
 create policy "send message"
-on messages for insert
+on message for insert
 with check (
-  auth.uid() = user_id
+  (select auth.uid()) = created_by
   and exists (
     select 1
     from room_users
-    where room_users.room_id = messages.room_id
-    and room_users.user_id = auth.uid()
+    where room_users.room_id = message.room_id
+    and room_users.user_id = (select auth.uid())
   )
 );
 
@@ -28,26 +28,26 @@ with check (
 create policy "select room users"
 on room_users for select
 using (
-  user_id = auth.uid()
+  user_id = (select auth.uid())
 );
 
 create policy "join room"
 on room_users for insert
-with check (auth.uid() = user_id);
+with check ((select auth.uid()) = user_id);
 
 -- Rooms
 
 create policy "select rooms"
-on rooms for select
+on room for select
 using (
   exists (
     select 1
     from room_users
-    where room_users.room_id = rooms.id
-    and room_users.user_id = auth.uid()
+    where room_users.room_id = room.id
+    and room_users.user_id = (select auth.uid())
   )
 );
 
 create policy "create room"
-on rooms for insert
-with check (auth.uid() = created_by);
+on room for insert
+with check ((select auth.uid()) = created_by);
