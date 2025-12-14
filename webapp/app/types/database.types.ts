@@ -34,37 +34,58 @@ export type Database = {
   }
   public: {
     Tables: {
-      messages: {
+      message: {
         Row: {
           content: string
           created_at: string | null
+          created_by: string
           id: string
           room_id: string
-          user_id: string
         }
         Insert: {
           content: string
           created_at?: string | null
+          created_by?: string
           id?: string
           room_id: string
-          user_id: string
         }
         Update: {
           content?: string
           created_at?: string | null
+          created_by?: string
           id?: string
           room_id?: string
-          user_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "messages_room_id_fkey"
+            foreignKeyName: "message_room_id_fkey"
             columns: ["room_id"]
             isOneToOne: false
-            referencedRelation: "rooms"
+            referencedRelation: "room"
             referencedColumns: ["id"]
           },
         ]
+      }
+      room: {
+        Row: {
+          created_at: string | null
+          created_by: string
+          id: string
+          name: string
+        }
+        Insert: {
+          created_at?: string | null
+          created_by?: string
+          id?: string
+          name: string
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string
+          id?: string
+          name?: string
+        }
+        Relationships: []
       }
       room_users: {
         Row: {
@@ -77,7 +98,7 @@ export type Database = {
           id?: string
           joined_at?: string | null
           room_id: string
-          user_id: string
+          user_id?: string
         }
         Update: {
           id?: string
@@ -90,31 +111,10 @@ export type Database = {
             foreignKeyName: "room_users_room_id_fkey"
             columns: ["room_id"]
             isOneToOne: false
-            referencedRelation: "rooms"
+            referencedRelation: "room"
             referencedColumns: ["id"]
           },
         ]
-      }
-      rooms: {
-        Row: {
-          created_at: string | null
-          created_by: string
-          id: string
-          name: string
-        }
-        Insert: {
-          created_at?: string | null
-          created_by: string
-          id?: string
-          name: string
-        }
-        Update: {
-          created_at?: string | null
-          created_by?: string
-          id?: string
-          name?: string
-        }
-        Relationships: []
       }
     }
     Views: {

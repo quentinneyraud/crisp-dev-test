@@ -1,9 +1,7 @@
 <script setup lang="ts">
-const user = useSupabaseUser()
-const client = useSupabaseClient()
-
-console.log(user)
-console.log(client)
+definePageMeta({
+  layout: 'chat',
+})
 </script>
 
 <template>
