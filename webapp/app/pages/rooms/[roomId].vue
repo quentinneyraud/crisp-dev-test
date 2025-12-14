@@ -7,15 +7,17 @@ definePageMeta({
 })
 
 const route = useRoute()
-const roomId = ref(route.params.roomId as string)
+const roomId = route.params.roomId as string
+
 const { messages, sendMessage } = useMessages(roomId)
 const { userRooms } = useRoom()
+const { users } = useRoomUsers(roomId)
 
 const chatFormRef = useTemplateRef('chatForm')
 
 const roomName = computed(() => {
   return userRooms.value
-    .find(room => room.id === roomId.value)
+    .find(room => room.id === roomId)
     ?.name
 })
 
@@ -30,6 +32,8 @@ async function submit({ message }: ChatFormSubmitEventOptions) {
   <div class="RoomDetail">
     <div class="RoomDetail-heading">
       Channels > {{ roomName }}
+
+      <pre>{{ users }}</pre>
     </div>
 
     <div class="RoomDetail-main">
@@ -65,6 +69,7 @@ async function submit({ message }: ChatFormSubmitEventOptions) {
   padding: toRem(15);
   border-radius: 15px;
   min-height: 0px;
+  flex-grow: 1;
 }
 
 .RoomDetail-messagesList {

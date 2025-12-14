@@ -1,7 +1,7 @@
 import type { RealtimePostgresInsertPayload } from '@supabase/supabase-js'
 import type { Tables } from '@/types/database.types'
 
-export function useMessages(roomId: Ref<Tables<'message'>['id'] | null>) {
+export function useMessages(roomId: Tables<'message'>['id']) {
   const client = useSupabaseClient()
   const user = useSupabaseUser()
 
@@ -9,12 +9,12 @@ export function useMessages(roomId: Ref<Tables<'message'>['id'] | null>) {
   let channel: ReturnType<typeof client.channel> | null = null
 
   async function loadLastMessages() {
-    if (!roomId.value || !user.value) return
+    if (!roomId || !user.value) return
 
     const { data, error } = await client
       .from('message')
       .select('id, content, created_by, room_id, created_at')
-      .eq('room_id', roomId.value)
+      .eq('room_id', roomId)
       .order('created_at', { ascending: false })
       .limit(10)
 
@@ -27,17 +27,17 @@ export function useMessages(roomId: Ref<Tables<'message'>['id'] | null>) {
   }
 
   function subscribe() {
-    if (!roomId.value || channel) return
+    if (channel) return
 
     channel = client
-      .channel(`messages-${roomId.value}`)
+      .channel(`messages-${roomId}`)
       .on(
         'postgres_changes',
         {
           event: 'INSERT',
           schema: 'public',
           table: 'message',
-          filter: `room_id=eq.${roomId.value}`,
+          filter: `room_id=eq.${roomId}`,
         },
         ({ new: message }: RealtimePostgresInsertPayload<Tables<'message'>>) => {
           messages.value.push(message)
@@ -54,23 +54,16 @@ export function useMessages(roomId: Ref<Tables<'message'>['id'] | null>) {
   }
 
   async function sendMessage(content: string) {
-    if (!roomId.value || !user.value) return
+    if (!roomId || !user.value) return
 
     await client.from('message').insert({
-      room_id: roomId.value,
+      room_id: roomId,
       content,
     })
   }
 
-  watch(roomId, async (newRoom) => {
-    unsubscribe()
-    messages.value = []
-
-    if (newRoom) {
-      await loadLastMessages()
-      subscribe()
-    }
-  }, { immediate: true })
+  loadLastMessages()
+  subscribe()
 
   onBeforeUnmount(() => {
     unsubscribe()

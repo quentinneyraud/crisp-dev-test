@@ -1,9 +1,6 @@
 <script setup lang="ts">
 export interface AppInputProps {
   label: string
-  /**
-   * @default name props
-   */
   id?: string
   name: string
   required?: boolean

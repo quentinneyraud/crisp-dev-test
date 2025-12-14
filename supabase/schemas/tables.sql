@@ -1,9 +1,21 @@
+
+-- Profile
+
+create table profile (
+  id uuid primary key references auth.users(id) on delete cascade,
+  email text,
+  created_at timestamp with time zone default now()
+);
+
+alter table profile enable row level security;
+
+
 -- Room
 
 create table room (
   id uuid primary key default gen_random_uuid(),
   name text not null unique,
-  created_by uuid not null references auth.users(id) default auth.uid(),
+  created_by uuid not null references profile(id) default auth.uid(),
   created_at timestamp with time zone default now()
 );
 
@@ -14,7 +26,7 @@ alter table room enable row level security;
 create table message (
   id uuid primary key default gen_random_uuid(),
   room_id uuid not null references room(id) on delete cascade,
-  created_by uuid not null references auth.users(id) on delete cascade default auth.uid(),
+  created_by uuid not null references profile(id) on delete cascade default auth.uid(),
   content text not null,
   created_at timestamp with time zone default now()
 );
@@ -27,7 +39,7 @@ alter table message enable row level security;
 create table room_users (
   id uuid primary key default gen_random_uuid(),
   room_id uuid not null references room(id) on delete cascade,
-  user_id uuid not null references auth.users(id) on delete cascade default auth.uid(),
+  user_id uuid not null references profile(id) on delete cascade default auth.uid(),
   joined_at timestamp with time zone default now(),
   unique (room_id, user_id)
 );

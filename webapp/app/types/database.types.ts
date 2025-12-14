@@ -58,6 +58,13 @@ export type Database = {
         }
         Relationships: [
           {
+            foreignKeyName: "message_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profile"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "message_room_id_fkey"
             columns: ["room_id"]
             isOneToOne: false
@@ -65,6 +72,24 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      profile: {
+        Row: {
+          created_at: string | null
+          email: string | null
+          id: string
+        }
+        Insert: {
+          created_at?: string | null
+          email?: string | null
+          id: string
+        }
+        Update: {
+          created_at?: string | null
+          email?: string | null
+          id?: string
+        }
+        Relationships: []
       }
       room: {
         Row: {
@@ -85,7 +110,15 @@ export type Database = {
           id?: string
           name?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "room_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profile"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       room_users: {
         Row: {
@@ -114,6 +147,13 @@ export type Database = {
             referencedRelation: "room"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "room_users_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profile"
+            referencedColumns: ["id"]
+          },
         ]
       }
     }
@@ -121,7 +161,8 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      is_user_in_room: { Args: { p_room_id: string }; Returns: boolean }
+      share_room_with: { Args: { p_user_id: string }; Returns: boolean }
     }
     Enums: {
       [_ in never]: never

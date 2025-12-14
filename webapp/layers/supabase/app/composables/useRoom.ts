@@ -1,4 +1,4 @@
-import type { RealtimePostgresInsertPayload } from '@supabase/supabase-js'
+import type { RealtimePostgresChangesPayload } from '@supabase/supabase-js'
 import type { Tables } from '@/types/database.types'
 
 export function useRoom() {
@@ -36,19 +36,21 @@ export function useRoom() {
           schema: 'public',
           table: 'room_users',
         },
-        async (payload: RealtimePostgresInsertPayload<Tables<'room_users'>>) => {
-          const roomId = payload.new.room_id
+        async (payload: RealtimePostgresChangesPayload<Tables<'room_users'>>) => {
+          if (payload.eventType === 'INSERT') {
+            const roomId = payload.new.room_id
 
-          const { data } = await client
-            .from('room')
-            .select('id, name, created_at, created_by')
-            .eq('id', roomId)
-            .single()
+            const { data } = await client
+              .from('room')
+              .select('id, name, created_at, created_by')
+              .eq('id', roomId)
+              .single()
 
-          if (!data) return
+            if (!data) return
 
-          if (!userRooms.value.some(a => a.id === data.id)) {
-            userRooms.value.unshift(data)
+            if (!userRooms.value.some(a => a.id === data.id)) {
+              userRooms.value.unshift(data)
+            }
           }
         },
       )

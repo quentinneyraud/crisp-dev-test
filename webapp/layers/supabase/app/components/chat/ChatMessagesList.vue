@@ -26,10 +26,6 @@ function isOwnMessage(message: Tables<'message'>) {
           alignSelf: isOwnMessage(message) ? 'flex-end' : 'flex-start',
         }"
       />
-      <ChatMessage
-        :is-own-message="false"
-        :message="{ content: 'Ok', created_at: '', created_by: '', id: '', room_id: '' }"
-      />
     </div>
   </div>
 </template>

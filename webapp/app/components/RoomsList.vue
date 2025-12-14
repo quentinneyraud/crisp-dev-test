@@ -1,6 +1,13 @@
 <script setup lang="ts">
+import type { AppInputModel } from './AppInput.vue'
+
 const { userRooms, createRoom } = useRoom()
 const name = ref('')
+
+const m = ref<AppInputModel>({
+  value: '',
+  error: undefined,
+})
 </script>
 
 <template>
@@ -29,6 +36,14 @@ const name = ref('')
     </ul>
 
     <div class="RoomsList-actions">
+      <AppInput
+        label="Ajouter une room"
+        type="text"
+        required
+        name="ok"
+        :model-value="m"
+      />
+
       <AppButton
         class="RoomsList-addChannelButton"
         label="Add a new channel"
