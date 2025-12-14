@@ -1,25 +1,59 @@
 <script setup lang="ts">
+import type { AppInputModel } from '../AppInput.vue'
+
 const user = useUser()
-const email = ref('')
+
+const isOpen = defineModel<boolean>('isOpen', {
+  required: true,
+})
 
 function login() {
-  user.login(email.value)
+  user.login(emailInput.value)
+}
+
+const emailInput: AppInputModel = {
+  value: '',
+  error: undefined,
 }
 </script>
 
 <template>
-  <div class="LoginModal">
-    <button @click="login">
-      Sign In with E-Mail
-    </button>
+  <Modal v-model:is-open="isOpen">
+    <p class="AppTitle-1">
+      Login
+    </p>
 
-    <input
-      v-model="email"
-      type="email"
+    <form
+      class="LoginModal-form"
+      @submit.prevent="login"
     >
-  </div>
+      <div class="LoginModal-fields">
+        <AppInput
+          type="email"
+          name="email"
+          :model-value="emailInput"
+          label="Email"
+          placeholder="Votre email"
+          required
+        />
+      </div>
+
+      <AppButton
+        class="LoginModal-submitButton"
+        as="button"
+        type="submit"
+        label="Sign in"
+      />
+    </form>
+  </modal>
 </template>
 
 <style lang="scss" scoped>
+.LoginModal-form {
+  margin-top: toRem(40);
+}
 
+.LoginModal-submitButton {
+  margin-top: toRem(50);
+}
 </style>

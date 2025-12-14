@@ -1,11 +1,11 @@
 import type { RealtimePostgresInsertPayload } from '@supabase/supabase-js'
 import type { Tables } from '@/types/database.types'
 
-export function useRooms() {
+export function useRoom() {
   const client = useSupabaseClient()
   const user = useSupabaseUser()
 
-  const rooms = ref<Tables<'room'>[]>([])
+  const userRooms = ref<Tables<'room'>[]>([])
   let channel: ReturnType<typeof client.channel> | null = null
 
   async function loadRooms() {
@@ -21,7 +21,7 @@ export function useRooms() {
       return
     }
 
-    rooms.value = data?.map(r => r.room) ?? []
+    userRooms.value = data?.map(a => a.room) ?? []
   }
 
   function subscribe() {
@@ -47,8 +47,8 @@ export function useRooms() {
 
           if (!data) return
 
-          if (!rooms.value.some(r => r.id === data.id)) {
-            rooms.value.unshift(data)
+          if (!userRooms.value.some(a => a.id === data.id)) {
+            userRooms.value.unshift(data)
           }
         },
       )
@@ -67,19 +67,43 @@ export function useRooms() {
     await client.from('room').insert({ name })
   }
 
+  async function joinRoom(name: string) {
+    if (!user.value) return
+
+    const { data: room, error: roomError } = await client
+      .from('room')
+      .select('id')
+      .eq('name', name)
+      .single()
+
+    if (!room || roomError) return
+
+    const { error } = await client
+      .from('room_users')
+      .insert({
+        room_id: room.id,
+      })
+
+    if (error) {
+      console.error(error)
+      throw error
+    }
+  }
+
   watch(user, async (u) => {
     if (u) {
       await loadRooms()
       subscribe()
     }
     else {
-      rooms.value = []
+      userRooms.value = []
       unsubscribe()
     }
   }, { immediate: true })
 
   return {
-    rooms,
+    userRooms,
     createRoom,
+    joinRoom,
   }
 }

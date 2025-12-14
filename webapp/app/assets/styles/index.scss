@@ -6,7 +6,9 @@
 Fonts
 
 */
-@include import-font('My font', '@/assets/fonts/my-font', $fw-regular);
+@include import-font('Lato', '@/assets/fonts/Lato-Regular', $fw-regular);
+@include import-font('Lato', '@/assets/fonts/Lato-Bold', $fw-bold);
+@include import-font('Lato', '@/assets/fonts/Lato-Light', $fw-light);
 
 /*
 
@@ -15,13 +17,24 @@ Text styles
 */
 
 @layer base {
-  .title-1 {
-    @include font($ff-my-font, fs(36, 70), 100%, $fw-regular);
-    white-space: pre-line;
+  .AppTitle-1 {
+    @include font($ff-lato, 35, auto, $fw-bold);
   }
 
-  .text-1 {
-    @include font($ff-my-font, fs(20, 20), 135%, $fw-light);
+  .AppSubtitle-1 {
+    @include font($ff-lato, 22, auto, $fw-bold);
+  }
+
+  .AppText-1 {
+    @include font($ff-lato, 16, auto, $fw-regular);
+  }
+
+  .AppText-2 {
+    @include font($ff-lato, 14, auto, $fw-light);
+  }
+
+  .AppText-3 {
+    @include font($ff-lato, 13, auto, $fw-bold);
   }
 }
 
@@ -31,15 +44,11 @@ Main
 
 */
 @layer base {
-  .wrapper-s {
-    @include wrapper(689);
-  }
-
-  .wrapper-m {
-    @include wrapper(926);
-  }
-
-  .wrapper-l {
-    @include wrapper(1163);
+  :root {
+    --app-brown: #{$app-brown};
+    --app-dark-grey: #{$app-dark-grey};
+    --app-medium-grey: #{$app-medium-grey};
+    --app-light-grey: #{$app-light-grey};
+    --app-light-purple: #{$app-light-purple};
   }
 }

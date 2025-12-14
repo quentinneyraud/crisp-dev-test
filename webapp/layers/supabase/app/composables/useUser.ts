@@ -12,8 +12,10 @@ export function useUser() {
     })
   }
 
-  function logout() {
-    return client.auth.signOut()
+  async function logout() {
+    await client.auth.signOut()
+
+    navigateTo('/')
   }
 
   return {

@@ -6,9 +6,9 @@
 @use './mixins.scss' as *;
 
 html {
-  @include bp-up($desktop-mockup-width) {
-    font-size: math.div(1600, $desktop-mockup-width) * 0.9vw;
-  }
+  // @include bp-up($desktop-mockup-width) {
+  //   font-size: math.div(1600, $desktop-mockup-width) * 0.9vw;
+  // }
 }
 
 body {

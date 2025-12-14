@@ -5,9 +5,27 @@
 
 /*
 
+Sizes
+
+*/
+$app-aside-width: min(250px, toRem(250));
+
+/*
+
 Colors
 
 */
+$app-brown: #1C0F12;
+$app-dark-grey: #6F7E86;
+$app-medium-grey: #a4a4a4;
+$app-light-grey: #E4E4E4;
+$app-light-purple: #BEBCC8;
+
+$body-color: $app-light-grey;
+$text-color: $app-brown;
+
+$app-gradient-bottom: linear-gradient(to bottom, $app-medium-grey 0%, $app-medium-grey 50%, rgba($app-medium-grey, 0));
+$app-gradient-right: linear-gradient(to right, $app-medium-grey 0%, $app-medium-grey 50%, rgba($app-medium-grey, 0));
 
 /*
 
@@ -22,8 +40,5 @@ $columns: 12;
 Texts
 
 */
-$ff-my-font: 'MyFont', $default-sans-serif-font-family;
-$default-font: $ff-my-font;
-
-
-$ma-variable: green;
+$ff-lato: 'Lato', $default-sans-serif-font-family;
+$default-font: $ff-lato;

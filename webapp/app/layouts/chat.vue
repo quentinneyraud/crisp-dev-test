@@ -2,13 +2,22 @@
 </script>
 
 <template>
-  <main>
-    <AppHeader />
+  <div class="ChatLayout">
+    <AppAside />
 
-    <aside>
-      <RoomsList />
-    </aside>
-
-    <slot />
-  </main>
+    <main class="ChatLayout-main">
+      <NuxtPage />
+    </main>
+  </div>
 </template>
+
+<style lang="scss" scoped>
+.ChatLayout {
+  height: 100vh;
+}
+
+.ChatLayout-main {
+  padding-left: $app-aside-width;
+  height: 100dvh;
+}
+</style>

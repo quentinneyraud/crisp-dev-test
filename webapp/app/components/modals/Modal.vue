@@ -51,7 +51,9 @@ watch(isOpen, (isOpen) => {
 
 .Modal-main {
   background-color: $white;
-  padding: toRem(20);
+  box-shadow: 3px 3px 5px 0 $app-brown;
+  width: max(500px, 50vw);
+  padding: toRem(50);
   border-radius: 5px;
 }
 </style>

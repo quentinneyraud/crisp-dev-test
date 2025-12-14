@@ -6,7 +6,7 @@ definePageMeta({
 
 <template>
   <main class="Index">
-    Index
+    Index page
   </main>
 </template>
 
