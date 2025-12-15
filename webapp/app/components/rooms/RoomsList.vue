@@ -1,5 +1,14 @@
 <script setup lang="ts">
-const { userRooms } = useRoom()
+const { userRooms, loadRooms, subscribe } = useRoom()
+const { user } = useUser()
+
+loadRooms()
+
+watch(user, (u) => {
+  if (u) {
+    subscribe()
+  }
+})
 </script>
 
 <template>

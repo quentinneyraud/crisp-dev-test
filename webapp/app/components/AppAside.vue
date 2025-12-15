@@ -6,18 +6,22 @@ const isLoginModalOpen = ref(false)
 
 <template>
   <aside class="AppAside">
-    <p class="AppAside-title AppSubtitle-1">
-      My channels
-    </p>
+    <template v-if="user">
+      <p class="AppAside-title AppSubtitle-1">
+        My channels
+      </p>
 
-    <div class="AppAside-separator" />
+      <div class="AppAside-separator" />
 
-    <RoomsList
-      v-if="user"
-      class="AppAside-roomsList"
-    />
+      <RoomsList
+        v-if="user"
+        class="AppAside-roomsList"
+      />
 
-    <RoomsActions class="AppAside-actions" />
+      <RoomsActions
+        class="AppAside-actions"
+      />
+    </template>
 
     <div class="AppAside-separator" />
 
@@ -62,7 +66,7 @@ const isLoginModalOpen = ref(false)
   bottom: $app-layout-padding;
   left: $app-layout-padding;
   width: $app-aside-width;
-  padding: toRem(15) toRem(25);
+  padding: toRem(20) toRem(25);
   z-index: 10;
 
   display: flex;

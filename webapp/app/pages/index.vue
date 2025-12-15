@@ -2,6 +2,8 @@
 definePageMeta({
   layout: 'chat',
 })
+
+const user = useSupabaseUser()
 </script>
 
 <template>
@@ -71,13 +73,15 @@ definePageMeta({
       </defs>
     </svg>
 
-    <p class="IndexPage-title AppTitle-1">
-      welcome to SupaChat
-    </p>
+    <template v-if="!user">
+      <p class="IndexPage-title AppTitle-1">
+        welcome to SupaChat
+      </p>
 
-    <p class="IndexPage-instructions">
-      Login to your account to chat with your friends
-    </p>
+      <p class="IndexPage-instructions">
+        Login to your account to chat with your friends
+      </p>
+    </template>
   </main>
 </template>
 
@@ -90,7 +94,7 @@ definePageMeta({
 
   @include after {
     @include full-parent;
-    background: linear-gradient(-145deg, rgba($white, 0.2), rgba($white, 0.1));
+    background: linear-gradient(-145deg, rgba($white, 0.05), rgba($white, 0.001));
   }
 }
 

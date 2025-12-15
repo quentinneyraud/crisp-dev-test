@@ -5,8 +5,8 @@ export function useRoom() {
   const client = useSupabaseClient()
   const user = useSupabaseUser()
 
-  const userRooms = ref<Tables<'room'>[]>([])
-  let channel: ReturnType<typeof client.channel> | null = null
+  const userRooms = useState<Tables<'room'>[]>('userRooms', () => [])
+  const channel = useState<ReturnType<typeof client.channel> | null>('userRoomsChannel', () => null)
 
   async function loadRooms() {
     if (!user.value) return
@@ -19,16 +19,15 @@ export function useRoom() {
 
     if (error) {
       console.error(error)
-      return
     }
 
     userRooms.value = data?.map(a => a.room) ?? []
   }
 
   function subscribe() {
-    if (channel || !user.value) return
+    if (channel.value || !user.value) return
 
-    channel = client
+    channel.value = client
       .channel('room-users-realtime')
       .on(
         'postgres_changes',
@@ -59,9 +58,9 @@ export function useRoom() {
   }
 
   function unsubscribe() {
-    if (channel) {
-      client.removeChannel(channel)
-      channel = null
+    if (channel.value) {
+      client.removeChannel(channel.value)
+      channel.value = null
     }
   }
 
@@ -81,32 +80,22 @@ export function useRoom() {
 
     if (!room || roomError) return
 
-    const { error, ...rest } = await client
+    const { error } = await client
       .from('room_users')
       .insert({
         room_id: room.id,
       })
 
-    console.error(error)
-    console.error(rest)
     if (error) {
       console.error(error)
       throw error
     }
   }
 
-  watch(user, async (u) => {
-    if (u) {
-      await loadRooms()
-      subscribe()
-    }
-    else {
-      userRooms.value = []
-      unsubscribe()
-    }
-  }, { immediate: true })
-
   return {
+    loadRooms,
+    subscribe,
+    unsubscribe,
     userRooms,
     createRoom,
     joinRoom,

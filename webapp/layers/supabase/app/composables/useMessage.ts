@@ -5,7 +5,7 @@ export function useMessages(roomId: Tables<'message'>['id']) {
   const client = useSupabaseClient()
   const user = useSupabaseUser()
 
-  const messages = ref<Tables<'message'>[]>([])
+  const messages = useState<Tables<'message'>[]>(`messages${roomId}`, () => [])
   let channel: ReturnType<typeof client.channel> | null = null
 
   async function loadLastMessages() {
@@ -39,8 +39,17 @@ export function useMessages(roomId: Tables<'message'>['id']) {
           table: 'message',
           filter: `room_id=eq.${roomId}`,
         },
-        ({ new: message }: RealtimePostgresInsertPayload<Tables<'message'>>) => {
-          messages.value.push(message)
+        async ({ new: message }: RealtimePostgresInsertPayload<Tables<'message'>>) => {
+          const { data } = await client
+            .from('message')
+            .select('id, content, created_by, room_id, created_at')
+            .eq('room_id', roomId)
+            .eq('id', message.id)
+            .maybeSingle()
+
+          if (data) {
+            messages.value.push(data)
+          }
         },
       )
       .subscribe()
