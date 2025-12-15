@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "update-db": "rm -rf ./supabase/migrations && npx supabase db reset && npx supabase db diff -f initial && npx supabase migration up"
-  },
+  "scripts": {},
   "keywords": [],
   "author": "",
   "license": "ISC"
