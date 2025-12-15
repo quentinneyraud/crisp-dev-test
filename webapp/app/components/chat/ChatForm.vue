@@ -45,10 +45,11 @@ defineExpose({
 <style lang="scss" scoped>
 .ChatForm {
   display: flex;
-  background: $app-light-purple;
-  height: toRem(70);
-  border-radius: 10px;
+  box-shadow: inset 0 0 50px 0 rgba(white, 0.1);
+  background: transparent;
+  border-radius: 15px;
   padding: toRem(15);
+  padding-left: toRem(30);
   gap: toRem(15);
 }
 

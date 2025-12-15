@@ -5,7 +5,7 @@ const redirectInfo = useSupabaseCookieRedirect()
 watch(user, () => {
   if (user.value) {
     const path = redirectInfo.pluck()
-    return navigateTo(path || '/rooms')
+    return navigateTo(path || '/')
   }
 }, { immediate: true })
 </script>

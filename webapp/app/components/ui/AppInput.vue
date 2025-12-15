@@ -56,10 +56,10 @@ const inputId = computed(() => {
 }
 
 .AppInput-input {
-  border: 1px solid $app-brown;
   border-radius: 5px;
   height: toRem(50);
   padding: toRem(10);
+  border: 1px solid $app-medium-grey;
 }
 
 .AppInput-error {

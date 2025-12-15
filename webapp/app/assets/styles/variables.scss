@@ -9,20 +9,20 @@ Sizes
 
 */
 $app-aside-width: min(300px, toRem(300));
+$app-layout-padding: toRem(30);
 
 /*
 
 Colors
 
 */
-$app-brown: #1C0F12;
-$app-dark-grey: #6F7E86;
-$app-medium-grey: #a4a4a4;
-$app-light-grey: #E4E4E4;
-$app-light-purple: #BEBCC8;
+$app-black: #070a0d;
+$app-dark-grey: #13181F;
+$app-medium-grey: #353d47;
+$app-light-grey: #a0a0a0;
 
-$body-color: $app-light-grey;
-$text-color: $app-brown;
+$body-color: $app-black;
+$text-color: $white;
 
 $app-gradient-bottom: linear-gradient(to bottom, $app-medium-grey 0%, $app-medium-grey 50%, rgba($app-medium-grey, 0));
 $app-gradient-right: linear-gradient(to right, $app-medium-grey 0%, $app-medium-grey 50%, rgba($app-medium-grey, 0));

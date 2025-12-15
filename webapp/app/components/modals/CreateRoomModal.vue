@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { AppInputModel } from '../AppInput.vue'
+import type { AppInputModel } from '../ui/AppInput.vue'
 
 const isOpen = defineModel<boolean>('isOpen', {
   required: true,
@@ -11,6 +11,7 @@ async function handleSubmit() {
   await createRoom(roomNameInput.value)
 
   isOpen.value = false
+  roomNameInput.value = ''
 }
 
 const roomNameInput: AppInputModel = {
@@ -20,11 +21,11 @@ const roomNameInput: AppInputModel = {
 </script>
 
 <template>
-  <Modal v-model:is-open="isOpen">
-    <p class="AppTitle-1">
-      Create room
-    </p>
-
+  <Modal
+    v-model:is-open="isOpen"
+    title="Add a new channel"
+    icon="fa7-regular:plus-square"
+  >
     <form
       class="CreateRoomModal-form"
       @submit.prevent="handleSubmit"
@@ -44,17 +45,13 @@ const roomNameInput: AppInputModel = {
         class="CreateRoomModal-submitButton"
         as="button"
         type="submit"
-        label="Sign in"
+        label="Create"
       />
     </form>
   </modal>
 </template>
 
 <style lang="scss" scoped>
-.CreateRoomModal-form {
-  margin-top: toRem(40);
-}
-
 .CreateRoomModal-submitButton {
   margin-top: toRem(50);
 }

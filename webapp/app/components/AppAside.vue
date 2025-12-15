@@ -6,10 +6,18 @@ const isLoginModalOpen = ref(false)
 
 <template>
   <aside class="AppAside">
+    <p class="AppAside-title AppSubtitle-1">
+      My channels
+    </p>
+
+    <div class="AppAside-separator" />
+
     <RoomsList
       v-if="user"
       class="AppAside-roomsList"
     />
+
+    <RoomsActions class="AppAside-actions" />
 
     <div class="AppAside-separator" />
 
@@ -25,9 +33,12 @@ const isLoginModalOpen = ref(false)
           </p>
         </div>
 
-        <button @click="logout">
-          log out
-        </button>
+        <AppButton
+          class="AppAside-logoutButton"
+          as="button"
+          label="log out"
+          @click="logout"
+        />
       </template>
 
       <AppButton
@@ -35,6 +46,7 @@ const isLoginModalOpen = ref(false)
         class="AppAside-loginButton"
         as="button"
         label="Login"
+        icon="fa7-regular:user"
         @click="isLoginModalOpen = true"
       />
 
@@ -46,28 +58,27 @@ const isLoginModalOpen = ref(false)
 <style lang="scss" scoped>
 .AppAside {
   position: fixed;
-  top: 0;
-  left: 0;
+  top: $app-layout-padding;
+  bottom: $app-layout-padding;
+  left: $app-layout-padding;
   width: $app-aside-width;
-  height: 100dvh;
-  padding: toRem(30) toRem(15);
+  padding: toRem(15) toRem(25);
+  z-index: 10;
 
   display: flex;
   flex-direction: column;
   gap: toRem(20);
+  background-color: $app-dark-grey;
+  border-radius: 15px;
+}
 
-  @include after {
-    position: absolute;
-    top: toRem(15);
-    right: 0;
-    width: 1px;
-    height: calc(100% - toRem(60));
-    background: $app-gradient-bottom;
-  }
+.AppAside-title {
+  margin-top: toRem(15);
 }
 
 .AppAside-roomsList {
   flex-grow: 1;
+  padding-inline: toRem(15);
 }
 
 .AppAside-separator {
@@ -77,7 +88,11 @@ const isLoginModalOpen = ref(false)
   background: $app-gradient-right;
 }
 
-.AppAside-loginButton {
+.AppAside-loginButton, .AppAside-logoutButton {
   width: 100%;
+}
+
+.AppAside-logoutButton  {
+  margin-top: toRem(10);
 }
 </style>

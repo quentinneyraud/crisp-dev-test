@@ -6,7 +6,7 @@ const sassModules: SassModules[] = ['math', 'map']
 const sassModulesImportString = sassModules.map(sassModule => `@use "sass:${sassModule}";`).join('')
 
 export default defineNuxtConfig({
-  modules: ['@nuxt/eslint', '@vueuse/nuxt', '@nuxt/icon'],
+  modules: ['@nuxt/eslint', '@vueuse/nuxt', '@nuxt/icon', 'lenis/nuxt'],
 
   // Remove components prefix
   components: [

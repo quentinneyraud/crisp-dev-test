@@ -13,11 +13,10 @@
 
 <style lang="scss" scoped>
 .ChatLayout {
-  height: 100vh;
+  height: 100dvh;
 }
 
 .ChatLayout-main {
-  padding-left: $app-aside-width;
   height: 100dvh;
 }
 </style>

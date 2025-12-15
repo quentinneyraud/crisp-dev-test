@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { AppInputModel } from '../AppInput.vue'
+import type { AppInputModel } from '../ui/AppInput.vue'
 
 const { joinRoom } = useRoom()
 
@@ -7,8 +7,11 @@ const isOpen = defineModel<boolean>('isOpen', {
   required: true,
 })
 
-function handleSubmit() {
-  joinRoom(roomNameInput.value)
+async function handleSubmit() {
+  await joinRoom(roomNameInput.value)
+
+  roomNameInput.value = ''
+  isOpen.value = false
 }
 
 const roomNameInput: AppInputModel = {
@@ -18,11 +21,11 @@ const roomNameInput: AppInputModel = {
 </script>
 
 <template>
-  <Modal v-model:is-open="isOpen">
-    <p class="AppTitle-1">
-      Create room
-    </p>
-
+  <Modal
+    v-model:is-open="isOpen"
+    title="Join a channel"
+    icon="fa7-regular:comments"
+  >
     <form
       class="JoinRoomModal-form"
       @submit.prevent="handleSubmit"
@@ -49,10 +52,6 @@ const roomNameInput: AppInputModel = {
 </template>
 
 <style lang="scss" scoped>
-.JoinRoomModal-form {
-  margin-top: toRem(40);
-}
-
 .JoinRoomModal-submitButton {
   margin-top: toRem(50);
 }

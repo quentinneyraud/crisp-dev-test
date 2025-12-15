@@ -18,6 +18,10 @@ Text styles
 
 @layer base {
   .AppTitle-1 {
+    @include font($ff-lato, 20, auto, $fw-bold);
+  }
+
+  .AppTitle-2 {
     @include font($ff-lato, 35, auto, $fw-bold);
   }
 
@@ -34,7 +38,7 @@ Text styles
   }
 
   .AppText-3 {
-    @include font($ff-lato, 13, auto, $fw-bold);
+    @include font($ff-lato, 14, auto, $fw-bold);
   }
 }
 
@@ -45,10 +49,8 @@ Main
 */
 @layer base {
   :root {
-    --app-brown: #{$app-brown};
+    --app-black: #{$app-black};
     --app-dark-grey: #{$app-dark-grey};
     --app-medium-grey: #{$app-medium-grey};
-    --app-light-grey: #{$app-light-grey};
-    --app-light-purple: #{$app-light-purple};
   }
 }
