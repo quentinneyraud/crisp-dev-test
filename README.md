@@ -47,3 +47,9 @@ pnpm run dev
 
 - [Supabase : Declarative database schemas](https://supabase.com/docs/guides/local-development/declarative-database-schemas)
 - [Nuxt Supabase module](https://supabase.nuxtjs.org/)
+
+## Missing features
+
+- Admin of a chat room (first user) can kick other users.
+- Tests
+- responsive
