@@ -13,6 +13,7 @@
     "supabase:types": "npx supabase gen types --lang=typescript --local > app/types/database.types.ts"
   },
   "dependencies": {
+    "@nuxt/icon": "2.1.1",
     "@nuxtjs/supabase": "2.0.3",
     "@supabase/supabase-js": "^2.87.1",
     "@vueuse/core": "^14.1.0",

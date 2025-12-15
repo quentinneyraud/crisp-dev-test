@@ -14,6 +14,7 @@ export function useRoom() {
     const { data, error } = await client
       .from('room_users')
       .select('room(id, name, created_at, created_by)')
+      .eq('user_id', user.value.sub)
       .order('room(created_at)', { ascending: false })
 
     if (error) {
@@ -76,16 +77,18 @@ export function useRoom() {
       .from('room')
       .select('id')
       .eq('name', name)
-      .single()
+      .maybeSingle()
 
     if (!room || roomError) return
 
-    const { error } = await client
+    const { error, ...rest } = await client
       .from('room_users')
       .insert({
         room_id: room.id,
       })
 
+    console.error(error)
+    console.error(rest)
     if (error) {
       console.error(error)
       throw error

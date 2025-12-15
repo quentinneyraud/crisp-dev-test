@@ -372,9 +372,7 @@ with check ((( SELECT auth.uid() AS uid) = created_by));
   as permissive
   for select
   to public
-using ((EXISTS ( SELECT 1
-   FROM public.room_users
-  WHERE ((room_users.room_id = room.id) AND (room_users.user_id = ( SELECT auth.uid() AS uid))))));
+using (true);
 
 
 

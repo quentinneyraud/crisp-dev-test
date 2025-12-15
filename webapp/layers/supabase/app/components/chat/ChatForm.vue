@@ -48,7 +48,7 @@ defineExpose({
   background: $app-light-purple;
   height: toRem(70);
   border-radius: 10px;
-  padding: toRem(15) toRem(30);
+  padding: toRem(15);
   gap: toRem(15);
 }
 

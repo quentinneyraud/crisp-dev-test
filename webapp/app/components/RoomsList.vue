@@ -1,18 +1,12 @@
 <script setup lang="ts">
-import type { AppInputModel } from './AppInput.vue'
-
-const { userRooms, createRoom } = useRoom()
-const name = ref('')
-
-const m = ref<AppInputModel>({
-  value: '',
-  error: undefined,
-})
+const { userRooms } = useRoom()
 </script>
 
 <template>
   <div class="RoomsList">
     <p class="RoomsList-title AppSubtitle-1">
+      <Icon name="fa7-regular:comments" />
+
       My channels
     </p>
 
@@ -35,34 +29,16 @@ const m = ref<AppInputModel>({
       </li>
     </ul>
 
-    <div class="RoomsList-actions">
-      <AppInput
-        label="Ajouter une room"
-        type="text"
-        required
-        name="ok"
-        :model-value="m"
-      />
-
-      <AppButton
-        class="RoomsList-addChannelButton"
-        label="Add a new channel"
-      />
-
-      <AppButton
-        class="RoomsList-addChannelButton"
-        label="Join a channel"
-      />
-    </div>
-
-    <form @submit.prevent="createRoom(name)">
-      <input v-model="name">
-      <button>Créer</button>
-    </form>
+    <RoomsActions class="RoomsList-actions" />
   </div>
 </template>
 
 <style lang="scss" scoped>
+.RoomsList {
+  display: flex;
+  flex-direction: column;
+}
+
 .RoomsList-list {
   margin-top: toRem(10);
   display: flex;

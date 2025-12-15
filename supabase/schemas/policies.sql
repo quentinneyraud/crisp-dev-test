@@ -40,12 +40,7 @@ with check ((select auth.uid()) = user_id);
 create policy "select rooms"
 on room for select
 using (
-  exists (
-    select 1
-    from room_users
-    where room_users.room_id = room.id
-    and room_users.user_id = (select auth.uid())
-  )
+  true
 );
 
 create policy "create room"

@@ -6,9 +6,10 @@ const isLoginModalOpen = ref(false)
 
 <template>
   <aside class="AppAside">
-    <div class="AppAside-top">
-      <RoomsList v-if="user" />
-    </div>
+    <RoomsList
+      v-if="user"
+      class="AppAside-roomsList"
+    />
 
     <div class="AppAside-separator" />
 
@@ -49,10 +50,11 @@ const isLoginModalOpen = ref(false)
   left: 0;
   width: $app-aside-width;
   height: 100dvh;
-  padding: toRem(15);
+  padding: toRem(30) toRem(15);
 
   display: flex;
   flex-direction: column;
+  gap: toRem(20);
 
   @include after {
     position: absolute;
@@ -64,15 +66,15 @@ const isLoginModalOpen = ref(false)
   }
 }
 
+.AppAside-roomsList {
+  flex-grow: 1;
+}
+
 .AppAside-separator {
+  margin-top: auto;
   width: 100%;
   height: 1px;
   background: $app-gradient-right;
-  margin-top: auto;
-}
-
-.AppAside-bottom {
-  padding-block: toRem(10);
 }
 
 .AppAside-loginButton {
